@@ -2,11 +2,11 @@
  * Representació de l'estat del problema
  */
 
-/** Imports */
-
+/* Imports */
+import IA.DistFS.*;
 
 public class ProbLSBoard {
-    /** Atributs */
+    /* Atributs */
 
     /** Constructora
      * Genera una instància del problema
@@ -15,6 +15,6 @@ public class ProbLSBoard {
 
     }
 
-    /** Operadors */
+    /* Operadors */
 
 }

@@ -1,3 +1,4 @@
+/* Imports */
 import aima.search.framework.HeuristicFunction;
 public class ProbLSHeuristicFunction implements HeuristicFunction {
     public double getHeuristicValue(Object state) {
