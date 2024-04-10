@@ -9,7 +9,7 @@ public class ProbLSHeuristicFunction implements HeuristicFunction {
     public double getHeuristicValue(Object state) {
         ProbLSBoard board = (ProbLSBoard)state;
         int[][] transmisionTimes = board.getTransmisionTimes();
-
+        
         int nservers = board.getNumServers();
         int[] count_servidors = new int[nservers];
 
