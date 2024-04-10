@@ -23,12 +23,12 @@ public class ProbLSSuccessorFunction implements SuccessorFunction {
 
         num_user = myRandom.nextInt(pare.getNumUsers());
 
-        pos_fitxer = myRandom.nextInt(pare.getUsuaris().get(num_user).length());
+        pos_fitxer = myRandom.nextInt(pare.getActualBoard().get(num_user).size());
 
-        int num_fitxer = pare.getUsuaris().get(num_user).get(pos_fitxer).getFirst();
+        int num_fitxer = pare.getActualBoard().get(num_user).get(pos_fitxer).getFirst();
 
         do{
-            num_server = myRandom.nextInt(pare.num_servers());
+            num_server = myRandom.nextInt(pare.getNumServers());
         }while( !(pare.validFileServer(num_fitxer, num_server) && num_server != pare.getUsuaris().get(num_user).get(pos_fitxer).getSecond()) ); // mentres el server no sigui possible buscar un nou
 
 
@@ -37,7 +37,7 @@ public class ProbLSSuccessorFunction implements SuccessorFunction {
         fill.changeTransmittingServer(num_user, num_fitxer, num_server);
 
         double valor = LSHF.getHeuristicValue(fill);
-        String string_info = "Fitxer " + num_fitxer + " del usuari " + num_user + " passa del servidor " + pare.getUsuaris().get(num_user).get(pos_fitxer).getSecond() + " al servidor " + num_server;
+        String string_info = "Fitxer " + num_fitxer + " del usuari " + num_user + " passa del servidor " + pare.getActualBoard().get(num_user).get(pos_fitxer).getSecond() + " al servidor " + num_server;
 
         // afegeix un fill al valor de return
         retVal.add(new Successor(string_info, fill));
