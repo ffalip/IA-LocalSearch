@@ -17,18 +17,20 @@ public class ProbLSSuccessorFunction implements SuccessorFunction {
         ProbLSHeuristicFunction LSHF  = new ProbLSHeuristicFunction();
 
 
-        for (int num_user = 0; num_user < pare.num_usuaris(); ++num_user){ // per cada usuari
-            for (int num_fitxer = 0; num_fitxer < pare.getUsuaris()[nom_user].length(); ++num_fitxer){ // per cada fitxer de l'usuari
+        for (int num_user = 0; num_user < pare.getNumUsers(); ++num_user){ // per cada usuari
+            for (int pos_fitxer = 0; pos_fitxer < pare.getUsuaris().get(num_user).length(); ++pos_fitxer){ // per cada fitxer de l'usuari
                 for (int num_server = 0; num_server < pare.num_servers(); ++num_server){ // per cada servidor
 
-                    if (pare.fitxerMesServerCompatibles(num_fitxer, num_server) && num_server != pare.getUsuaris()[num_user][num_fitxer].get_second()){ // server es compatible amb el fitxer i no es el mateix server que ja tenia
+                    int num_fitxer = pare.getUsuaris().get(num_user).get(pos_fitxer).getFirst();
 
-                        ProbLSBoard fill = new ProbLSBoard("INFO PER CREAR EL FILL IGUAL AL PARE");
+                    if (pare.validFileServer(num_fitxer, num_server) && num_server != pare.getUsuaris().get(num_user).get(pos_fitxer).getSecond()){ // server es compatible amb el fitxer i no es el mateix server que ja tenia
 
-                        fill.canviarFitxerDeServer(num_user, num_fitxer, num_server);
+                        ProbLSBoard fill = new ProbLSBoard(pare.getNumServers(), pare.getNumUsers(), pare.getFileLoc(), pare.getTransTime(), pare.getActualBoard());
+
+                        fill.changeTransmittingServer(num_user, num_fitxer, num_server);
 
                         double valor = LSHF.getHeuristicValue(fill);
-                        String string_info = "";
+                        String string_info = "Fitxer " + num_fitxer + " del usuari " + num_user + " passa del servidor " + pare.getUsuaris().get(num_user).get(pos_fitxer).getSecond() + " al servidor " + num_server;
 
                         // afegeix un fill al valor de return
                         retVal.add(new Successor(string_info, fill));
