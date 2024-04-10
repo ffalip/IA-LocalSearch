@@ -13,7 +13,7 @@ public class ProbLSHeuristicFunction implements HeuristicFunction {
         nu = usuaris.size(); // cambiar per nombre usuraris de state
         for (int i = 0; i < nu; ++i) {
             for (int j = 0; j < usuaris.get(i).size(); ++j) {
-                sum += usuaris.get(i).get(j).getSecond();
+                sum += usuaris.get(i).get(j).getSecond() * usuaris.get(i).get(j).getSecond();
             }
         }
         return (sum);
