@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 
-public class ProbLSSuccessorFunction implements SuccessorFunction {
+public class ProbLSSuccessorFunctionSA implements SuccessorFunction {
 
     @SuppressWarnings("unchecked")
     public List getSuccessors(Object aState) { // retorna ArrayList on cada element es un sucessor
@@ -29,7 +29,7 @@ public class ProbLSSuccessorFunction implements SuccessorFunction {
 
         do{
             num_server = myRandom.nextInt(pare.getNumServers());
-        }while( !(pare.validFileServer(num_fitxer, num_server) && num_server != pare.getUsuaris().get(num_user).get(pos_fitxer).getSecond()) ); // mentres el server no sigui possible buscar un nou
+        } while( !(pare.validFileServer(num_fitxer, num_server) && num_server != pare.getActualBoard().get(num_user).get(pos_fitxer).getSecond()) ); // mentres el server no sigui possible buscar un nou
 
 
         ProbLSBoard fill = new ProbLSBoard(pare.getNumServers(), pare.getNumUsers(), pare.getFileLoc(), pare.getTransTime(), pare.getActualBoard());

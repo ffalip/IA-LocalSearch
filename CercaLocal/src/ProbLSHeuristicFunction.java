@@ -8,12 +8,12 @@ public class ProbLSHeuristicFunction implements HeuristicFunction {
 
     public double getHeuristicValue(Object state) {
         ProbLSBoard board = (ProbLSBoard)state;
-        int[][] transmisionTimes = board.getTransmisionTimes();
+        int[][] transmisionTimes = board.getTransTime();
         
         int nservers = board.getNumServers();
         int[] count_servidors = new int[nservers];
 
-        ArrayList<ArrayList<Pair<Integer, Integer>>> usuaris = board.getUsuaris();
+        ArrayList<ArrayList<Pair<Integer, Integer>>> usuaris = board.getActualBoard();
 
         int nu = usuaris.size(); // cambiar per nombre usuraris de state
         for (int i = 0; i < nu; ++i) {
