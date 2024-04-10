@@ -1,23 +1,38 @@
+import java.io.IOException;
+import java.util.Random;
+
 
 public class Main {
+    private static final int maxUsers    = 100;
+    private static final int maxServers  = 50;
+    private static final int maxReqFiles = 10;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        System.out.print("Problema amb atributs randoms (R) o manuals (M): ");
+        char mode = (char) System.in.read();
+        System.out.println();
+        if (mode == 'R') {
+            System.out.println("Generant problema aleatori...");
 
-        System.out.println("Hello world!");        // Create a Pair with Integer and String
+            long seed = System.currentTimeMillis();
+            Random rand = new Random(seed);
 
-        Pair<Integer, String> pair = new Pair<>(10, "Hello");
+            int numUsers    = rand.nextInt(maxUsers) + 1;
+            int numServers  = rand.nextInt(maxServers) + 1;
+            int problemSeed = rand.nextInt();
+            int maxReq      = rand.nextInt(maxReqFiles) + 1;
+            int minReps     = rand.nextInt((numServers / 2)) + 1;
+            ProbLSBoard board = new ProbLSBoard(numUsers, maxReq, numServers, minReps, problemSeed);
 
-        // Accessing elements of the Pair
-        Integer first = pair.getFirst();
-        String second = pair.getSecond();
+        }
+        else if (mode == 'M'){
+            System.out.print("Introdueix el nombre de d'usuaris: ");
+            System.out.print("Introdueix el nombre de servidors: ");
+            System.out.print("Introdueix el nombre màxim de peticions per usuari: ");
+            System.out.print("Introdueix el nombre minim de replicació de fitxers ");
 
-        // Printing the Pair
-        System.out.println("First: " + first);
-        System.out.println("Second: " + second);
+        }
+        else System.out.println("El mode: " + mode + " no és vàlid");
 
-        // Using toString() method to print the Pair
-        System.out.println("Pair: " + pair);
     }
-
-
 }
