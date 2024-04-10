@@ -19,7 +19,7 @@ public class ProbLSSuccessorFunction implements SuccessorFunction {
 
 
         for (int num_user = 0; num_user < pare.getNumUsers(); ++num_user){ // per cada usuari
-            for (int pos_fitxer = 0; pos_fitxer < pare.getActualBoard().get(num_user).length(); ++pos_fitxer){ // per cada fitxer de l'usuari
+            for (int pos_fitxer = 0; pos_fitxer < pare.getActualBoard().get(num_user).size(); ++pos_fitxer){ // per cada fitxer de l'usuari
                 for (int num_server = 0; num_server < pare.getNumServers(); ++num_server){ // per cada servidor
 
                     int num_fitxer = pare.getActualBoard().get(num_user).get(pos_fitxer).getFirst();

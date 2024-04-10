@@ -30,7 +30,6 @@ public class Main {
             System.out.print("Introdueix el nombre de servidors: ");
             System.out.print("Introdueix el nombre màxim de peticions per usuari: ");
             System.out.print("Introdueix el nombre minim de replicació de fitxers ");
-
         }
         else System.out.println("El mode: " + mode + " no és vàlid");
 
