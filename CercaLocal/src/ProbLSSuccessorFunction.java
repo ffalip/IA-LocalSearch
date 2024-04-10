@@ -13,7 +13,7 @@ public class ProbLSSuccessorFunction implements SuccessorFunction {
     @SuppressWarnings("unchecked")
     public List getSuccessors(Object aState) { // retorna ArrayList on cada element es un sucessor
         ArrayList retVal = new ArrayList();
-        ProbLSBoard pare = (ProbLSBoard) aState
+        ProbLSBoard pare = (ProbLSBoard) aState;
 
         for (int i = 0; i < 1; ++i){
 
