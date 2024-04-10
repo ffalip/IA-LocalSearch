@@ -8,9 +8,9 @@ public class ProbLSHeuristicFunction implements HeuristicFunction {
 
     public double getHeuristicValue(Object state) {
         ProbLSBoard board = (ProbLSBoard)state;
-        Servers servers = board.getServers();
+        int[][] transmisionTimes = board.getTransmisionTimes();
 
-        int nservers = servers.size();
+        int nservers = board.getNumServers();
         int[] count_servidors = new int[nservers];
 
         ArrayList<ArrayList<Pair<Integer, Integer>>> usuaris = board.getUsuaris();
@@ -19,7 +19,7 @@ public class ProbLSHeuristicFunction implements HeuristicFunction {
         for (int i = 0; i < nu; ++i) {
             for (int j = 0; j < usuaris.get(i).size(); ++j) {
                 int idServer = usuaris.get(i).get(j).getSecond();
-                count_servidors[idServer] += servers.tranmissionTime(i, idServer);
+                count_servidors[idServer] += transmisionTimes[i][idServer];
             }
         }
 
