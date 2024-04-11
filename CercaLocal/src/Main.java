@@ -23,7 +23,6 @@ public class Main {
             int maxReq      = rand.nextInt(maxReqFiles) + 1;
             int minReps     = rand.nextInt((numServers / 2)) + 1;
             ProbLSBoard board = new ProbLSBoard(numUsers, maxReq, numServers, minReps, problemSeed);
-
         }
         else if (mode == 'M'){
             System.out.print("Introdueix el nombre de d'usuaris: ");
