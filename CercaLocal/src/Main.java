@@ -10,7 +10,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
         System.out.print("Problema amb atributs randoms (R) o manuals (M): ");
         char mode = (char) System.in.read();
-        System.out.println();
         if (mode == 'R') {
             System.out.println("Generant problema aleatori...");
 
@@ -22,7 +21,10 @@ public class Main {
             int problemSeed = rand.nextInt();
             int maxReq      = rand.nextInt(maxReqFiles) + 1;
             int minReps     = rand.nextInt((numServers / 2)) + 1;
+            System.out.println(numUsers + " " + maxReq + " " + numServers + " " + minReps);
             ProbLSBoard board = new ProbLSBoard(numUsers, maxReq, numServers, minReps, problemSeed);
+            board.printState();
+            board.printTransTime();
         }
         else if (mode == 'M'){
             System.out.print("Introdueix el nombre de d'usuaris: ");

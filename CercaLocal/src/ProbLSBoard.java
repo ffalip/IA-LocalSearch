@@ -4,16 +4,16 @@
 
 /* Imports */
 import IA.DistFS.*;
-import java.util.ArrayList;
-import java.util.Random;
+
+import java.util.*;
 
 public class ProbLSBoard {
     /* Atributs */
     private static int numServers;
     private static int numUsers;
-    private static ArrayList<int[]> fileLoc;
-    private static int[][] transTime;
-    private ArrayList<ArrayList<Pair<Integer, Integer>>> actualBoard;
+    private static HashMap<Integer, int[]> fileLoc;
+    private static HashMap<Integer, int[]> transTime;
+    private HashMap<Integer, ArrayList<Pair<Integer, Integer>>> actualBoard;
 
 
     /** Constructora
@@ -25,35 +25,34 @@ public class ProbLSBoard {
             Random rand = new Random(seed);
             Requests requests = new Requests(users, maxReq, seed);
             Servers servers = new Servers(numS, minReps, seed);
-            numServers = numS;
-            numUsers   = users;
-            fileLoc = new ArrayList<>();
-            actualBoard = new ArrayList<>();
-            transTime = new int[numUsers][numServers];
-
-            for (int i = 0; i < users; ++i) actualBoard.add(new ArrayList<Pair<Integer, Integer>>());
-
-            for (int i = 0; i < numUsers; i++)
-                for (int j = 0; j < numServers; j++) {
-                    transTime[i][j] = servers.tranmissionTime(i, j);
-                }
+            numServers  = numS;
+            numUsers    = users;
+            fileLoc     = new HashMap<>();
+            actualBoard = new HashMap<>();
+            transTime   = new HashMap<>();
 
             for (int i = 0; i < requests.size(); i++) {
                 int usrId = requests.getRequest(i)[0];
                 int fileId = requests.getRequest(i)[1];
 
                 int[] fileIdLoc = servers.fileLocations(fileId).stream().mapToInt(a->a).toArray();
-                fileLoc.add(fileId, fileIdLoc);
+                fileLoc.put(fileId, fileIdLoc);
 
                 int randS = fileIdLoc[rand.nextInt(fileIdLoc.length)];
-                actualBoard.get(usrId).add(new Pair<>(fileId, randS));
+                actualBoard.computeIfAbsent(usrId, k -> new ArrayList<>());
+                actualBoard.get(usrId).add(new Pair<Integer,Integer>(fileId, randS));
+            }
+            for (int userId : actualBoard.keySet()) {
+                int[] transTimeUserId = new int[numServers];
+                for (int i = 0; i < numServers; i++) transTimeUserId[i] = servers.tranmissionTime(i, userId);
+                transTime.put(userId, transTimeUserId);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
-    public ProbLSBoard(int numS, int numU, ArrayList<int[]> fLoc, int[][] tTime,
-                       ArrayList<ArrayList<Pair<Integer, Integer>>> board)
+    public ProbLSBoard(int numS, int numU, HashMap<Integer, int[]> fLoc, HashMap<Integer, int[]> tTime,
+                       HashMap<Integer, ArrayList<Pair<Integer, Integer>>> board)
     {
         numServers  = numS;
         numUsers    = numU;
@@ -63,9 +62,10 @@ public class ProbLSBoard {
     }
     public int getNumServers() { return numServers; }
     public int getNumUsers() { return numUsers; }
-    public int[][] getTransTime() {return transTime; }
-    public ArrayList<int[]> getFileLoc() { return fileLoc; }
-    public ArrayList<ArrayList<Pair<Integer, Integer>>> getActualBoard() {return actualBoard;}
+    public HashMap<Integer, int[]> getTransTime() {return transTime; }
+    public HashMap<Integer, int[]> getFileLoc() { return fileLoc; }
+    public HashMap<Integer, ArrayList<Pair<Integer, Integer>>> getActualBoard() {return actualBoard;}
+    public ArrayList<Integer> getUsersId() { return new ArrayList<Integer>(actualBoard.keySet()); }
 
     public boolean validFileServer(int fileId, int serverId)
     {
@@ -84,6 +84,21 @@ public class ProbLSBoard {
         }
     }
 
-    /* Operadors */
+    public void printState()
+    {
+        for (HashMap.Entry<Integer, ArrayList<Pair<Integer,Integer>>> entry: actualBoard.entrySet()) {
+            System.out.print("user" + entry.getKey() + ": ");
+            for (Pair<Integer,Integer> p : entry.getValue())
+                System.out.print("(" + p.first + "," + p.second + ") ");
+            System.out.println();
+        }
+    }
 
+    public void printTransTime()
+    {
+        for (int key: transTime.keySet()) {
+            System.out.println(Arrays.toString(transTime.get(key)));
+        }
+    }
+    /* Operadors */
 }
