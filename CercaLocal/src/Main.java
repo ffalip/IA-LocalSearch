@@ -34,7 +34,8 @@ public class Main {
             ProbLSBoard board = new ProbLSBoard(numUsers, maxReq, numServers, minReps, problemSeed);
             board.printState();
             LSHillClimbingSearch(board);
-            LSSimulatedAnnealingSearch(board);
+            board.printServersTime();
+            //LSSimulatedAnnealingSearch(board);
         }
         else if (mode == 'M'){
             System.out.print("Introdueix el nombre de d'usuaris: ");

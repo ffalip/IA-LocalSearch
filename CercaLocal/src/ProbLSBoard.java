@@ -119,4 +119,21 @@ public class ProbLSBoard {
             System.out.println();
         }
     }
+
+    public void printServersTime() {
+        int nservers = numServers;
+        int[] count_servidors = new int[nservers];
+        for (HashMap.Entry<Integer, ArrayList<Pair<Integer,Integer>>> entry : actualBoard.entrySet()) {
+            Integer key = entry.getKey();
+            ArrayList<Pair<Integer,Integer>> value = entry.getValue();
+            int nreq = value.size();
+            for (int j = 0; j < nreq; ++j) {
+                int idServer = value.get(j).second;
+                count_servidors[idServer] += transTime.get(key)[idServer]; //transtimes correcte
+            }
+        }
+        for (int i = 0; i < nservers; ++i) {
+            System.out.println(i + "temps:" + count_servidors[i]);
+        }
+    }
 }
