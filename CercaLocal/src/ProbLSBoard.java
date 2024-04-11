@@ -56,9 +56,35 @@ public class ProbLSBoard {
     {
         numServers  = numS;
         numUsers    = numU;
-        fileLoc     = fLoc;
-        transTime   = tTime;
-        actualBoard = board;
+        fileLoc     = deepCopyIntArrayHashMap(fLoc);
+        transTime   = deepCopyIntArrayHashMap(tTime);
+        actualBoard = deepCopyPairArrayListHashMap(board);
+    }
+    // Method to deep copy HashMap<Integer, int[]>
+    private HashMap<Integer, int[]> deepCopyIntArrayHashMap(HashMap<Integer, int[]> original) {
+        HashMap<Integer, int[]> copy = new HashMap<>();
+        for (Integer key : original.keySet()) {
+            int[] originalArray = original.get(key);
+            int[] newArray = Arrays.copyOf(originalArray, originalArray.length);
+            copy.put(key, newArray);
+        }
+        return copy;
+    }
+
+    // Method to deep copy HashMap<Integer, ArrayList<Pair<Integer, Integer>>>
+    private HashMap<Integer, ArrayList<Pair<Integer, Integer>>> deepCopyPairArrayListHashMap(HashMap<Integer, ArrayList<Pair<Integer, Integer>>> original) {
+        HashMap<Integer, ArrayList<Pair<Integer, Integer>>> copy = new HashMap<>();
+        for (Integer key : original.keySet()) {
+            ArrayList<Pair<Integer, Integer>> originalList = original.get(key);
+            ArrayList<Pair<Integer, Integer>> newList = new ArrayList<>();
+            for (Pair<Integer, Integer> pair : originalList) {
+                // Creating a new Pair object with the same values
+                Pair<Integer, Integer> newPair = new Pair<>(pair.first, pair.second);
+                newList.add(newPair);
+            }
+            copy.put(key, newList);
+        }
+        return copy;
     }
     public int getNumServers() { return numServers; }
     public int getNumUsers() { return numUsers; }
@@ -93,12 +119,4 @@ public class ProbLSBoard {
             System.out.println();
         }
     }
-
-    public void printTransTime()
-    {
-        for (int key: transTime.keySet()) {
-            System.out.println(Arrays.toString(transTime.get(key)));
-        }
-    }
-    /* Operadors */
 }

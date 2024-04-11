@@ -7,6 +7,11 @@ import java.util.HashMap;
 
 public class ProbLSHeuristicFunction implements HeuristicFunction {
 
+    public boolean equals(Object obj) {
+        boolean retValue;
+        retValue = super.equals(obj);
+        return retValue;
+    }
     public double getHeuristicValue(Object state) {
         ProbLSBoard board = (ProbLSBoard)state;
         HashMap<Integer, int[]> transmisionTimes = board.getTransTime();
@@ -26,9 +31,9 @@ public class ProbLSHeuristicFunction implements HeuristicFunction {
             }
         }
 
-        int sum = 0;
+        double sum = 0;
         for (int i = 0; i < nservers; ++i) {
-            sum += count_servidors[i]*count_servidors[i];
+            sum += (double)count_servidors[i]*(double)count_servidors[i];
         }
         return (sum);
     }

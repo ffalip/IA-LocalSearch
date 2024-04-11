@@ -26,15 +26,15 @@ public class Main {
             Random rand = new Random(seed);
 
             int numUsers    = rand.nextInt(maxUsers) + 1;
-            int numServers  = rand.nextInt(maxServers) + 1;
+            int numServers  = rand.nextInt(maxServers-1) + 2;
             int problemSeed = rand.nextInt();
             int maxReq      = rand.nextInt(maxReqFiles) + 1;
             int minReps     = rand.nextInt((numServers / 2)) + 1;
             System.out.println(numUsers + " " + maxReq + " " + numServers + " " + minReps);
             ProbLSBoard board = new ProbLSBoard(numUsers, maxReq, numServers, minReps, problemSeed);
             board.printState();
-            board.printTransTime();
             LSHillClimbingSearch(board);
+            LSSimulatedAnnealingSearch(board);
         }
         else if (mode == 'M'){
             System.out.print("Introdueix el nombre de d'usuaris: ");
@@ -52,7 +52,6 @@ public class Main {
             Problem problem =  new Problem(board,new ProbLSSuccessorFunction(), new ProbLSGoalTest(),new ProbLSHeuristicFunction());
             Search search =  new HillClimbingSearch();
             SearchAgent agent = new SearchAgent(problem,search);
-
             System.out.println();
             printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
@@ -60,6 +59,22 @@ public class Main {
             e.printStackTrace();
         }
     }
+    private static void LSSimulatedAnnealingSearch(ProbLSBoard board) {
+        System.out.println("\nTSP Simulated Annealing  -->");
+        try {
+            Problem problem =  new Problem(board,new ProbLSSuccessorFunctionSA(), new ProbLSGoalTest(),new ProbLSHeuristicFunction());
+            SimulatedAnnealingSearch search =  new SimulatedAnnealingSearch(100000,100,5,0.001);
+            //search.traceOn();
+            SearchAgent agent = new SearchAgent(problem,search);
+
+            System.out.println();
+            //printActions(agent.getActions());
+            printInstrumentation(agent.getInstrumentation());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private static void printInstrumentation(Properties properties) {
         Iterator keys = properties.keySet().iterator();
         while (keys.hasNext()) {
