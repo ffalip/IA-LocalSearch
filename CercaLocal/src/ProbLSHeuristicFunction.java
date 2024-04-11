@@ -9,11 +9,11 @@ public class ProbLSHeuristicFunction implements HeuristicFunction {
 
     public double getHeuristicValue(Object state) {
         ProbLSBoard board = (ProbLSBoard)state;
-        HashMap<Integer, int[]> transmisionTimes = new HashMap<>();//board.getTransTime();
+        HashMap<Integer, int[]> transmisionTimes = board.getTransTime();
         
         int nservers = board.getNumServers();
 
-        HashMap<Integer, ArrayList<Pair<Integer,Integer>>> usuaris = new HashMap<>();
+        HashMap<Integer, ArrayList<Pair<Integer,Integer>>> usuaris = board.getActualBoard();
         int[] count_servidors = new int[nservers];
 
         for (HashMap.Entry<Integer, ArrayList<Pair<Integer,Integer>>> entry : usuaris.entrySet()) {
