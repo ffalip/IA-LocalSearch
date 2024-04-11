@@ -19,11 +19,11 @@ public class ProbLSSuccessorFunctionSA implements SuccessorFunction {
         ProbLSHeuristicFunction LSHF  = new ProbLSHeuristicFunction();
         Random myRandom=new Random();
 
-        ArrayList users = pare.getUsersId();
+        ArrayList<Integer> users = pare.getUsersId();
 
         int num_user, pos_fitxer, num_server;
 
-        num_user = myRandom.nextInt(users.length);
+        num_user = myRandom.nextInt(users.size());
 
         int id_user = users.get(num_user);
 
