@@ -24,7 +24,6 @@ public class Main {
             System.out.println(numUsers + " " + maxReq + " " + numServers + " " + minReps);
             ProbLSBoard board = new ProbLSBoard(numUsers, maxReq, numServers, minReps, problemSeed);
             board.printState();
-            board.printTransTime();
         }
         else if (mode == 'M'){
             System.out.print("Introdueix el nombre de d'usuaris: ");

@@ -93,12 +93,4 @@ public class ProbLSBoard {
             System.out.println();
         }
     }
-
-    public void printTransTime()
-    {
-        for (int key: transTime.keySet()) {
-            System.out.println(Arrays.toString(transTime.get(key)));
-        }
-    }
-    /* Operadors */
 }
