@@ -17,13 +17,12 @@ public class ProbLSSuccessorFunction implements SuccessorFunction {
         ProbLSBoard pare = (ProbLSBoard) aState;
         ProbLSHeuristicFunction LSHF  = new ProbLSHeuristicFunction();
 
-        ArrayList users = pare.getUsersId();
+        ArrayList<Integer> users = pare.getUsersId();
 
-        for (int num_user = 0; num_user < users.length; ++num_user){ // per cada usuari
-            for (int pos_fitxer = 0; pos_fitxer < pare.getActualBoard().get(id_user).length; ++pos_fitxer){ // per cada fitxer de l'usuari
+        for (int num_user = 0; num_user < users.size(); ++num_user){ // per cada usuari
+            int id_user = users.get(num_user);
+            for (int pos_fitxer = 0; pos_fitxer < pare.getActualBoard().get(id_user).size(); ++pos_fitxer){ // per cada fitxer de l'usuari
                 for (int num_server = 0; num_server < pare.getNumServers(); ++num_server){ // per cada servidor
-
-                    int id_user = users.get(num_user);
 
                     int num_fitxer = pare.getActualBoard().get(id_user).get(pos_fitxer).getFirst();
 
