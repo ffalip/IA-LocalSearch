@@ -20,15 +20,15 @@ public class Main {
     public static void main(String[] args) throws IOException {
         System.out.print("Problema amb atributs randoms (R) o manuals (M): ");
         char mode = (char) System.in.read();
-        long seed = System.currentTimeMillis();
+        long seed = 0;
         Random rand = new Random(seed);
-        int problemSeed = rand.nextInt();
+        int problemSeed;
 
         int numUsers;
         int numServers;
         int maxReq;
         int minReps;
-
+        /*
         if (mode == 'R') {
             System.out.println("Generant problema aleatori...");
              seed = System.currentTimeMillis();
@@ -38,17 +38,20 @@ public class Main {
              minReps     = rand.nextInt((numServers / 2)) + 1;
             System.out.println(numUsers + " " + maxReq + " " + numServers + " " + minReps);
 
-        }
-        else {
+        }*/
+        //else {
             numUsers    = 200;
             numServers  = 50;
             maxReq      = 5;
             minReps     = 5;
+        //}
+        for (int i = 0; i < 10; ++i) {
+            problemSeed = rand.nextInt(Integer.MAX_VALUE);
+            System.out.println(problemSeed);
+            ProbLSBoard board = new ProbLSBoard(numUsers, maxReq, numServers, minReps, problemSeed);
+            //board.printState();
+            LSHillClimbingSearch(board);
         }
-
-        ProbLSBoard board = new ProbLSBoard(numUsers, maxReq, numServers, minReps, problemSeed);
-        board.printState();
-        LSHillClimbingSearch(board);
         //board.printServersTime();
         //LSSimulatedAnnealingSearch(board);
 
