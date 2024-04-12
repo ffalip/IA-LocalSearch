@@ -33,8 +33,8 @@ public class ProbLSHeuristicFunction1 implements HeuristicFunction {
 
         double max = 0;
         for (int i = 0; i < nservers; ++i) {
-            if (count_servidors[i] > max) {
-                max = (double)count_servidors[i];
+            if ((double) count_servidors[i] >= max) {
+                max = count_servidors[i];
             }
         }
         return (max);

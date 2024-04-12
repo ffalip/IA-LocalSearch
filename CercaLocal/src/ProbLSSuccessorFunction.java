@@ -16,7 +16,7 @@ public class ProbLSSuccessorFunction implements SuccessorFunction {
 
         ArrayList retVal = new ArrayList();
         ProbLSBoard pare = (ProbLSBoard) aState;
-        ProbLSHeuristicFunction LSHF  = new ProbLSHeuristicFunction();
+        ProbLSHeuristicFunction1 LSHF  = new ProbLSHeuristicFunction1();
 
         ArrayList<Integer> users = pare.getUsersId();
 

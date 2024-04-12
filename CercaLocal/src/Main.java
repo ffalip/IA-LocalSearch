@@ -49,7 +49,7 @@ public class Main {
         ProbLSBoard board = new ProbLSBoard(numUsers, maxReq, numServers, minReps, problemSeed);
         board.printState();
         LSHillClimbingSearch(board);
-        board.printServersTime();
+        //board.printServersTime();
         //LSSimulatedAnnealingSearch(board);
 
     }
@@ -70,7 +70,7 @@ public class Main {
     private static void LSSimulatedAnnealingSearch(ProbLSBoard board) {
         System.out.println("\nTSP Simulated Annealing  -->");
         try {
-            Problem problem =  new Problem(board,new ProbLSSuccessorFunctionSA(), new ProbLSGoalTest(),new ProbLSHeuristicFunction());
+            Problem problem =  new Problem(board,new ProbLSSuccessorFunctionSA(), new ProbLSGoalTest(),new ProbLSHeuristicFunction1());
             SimulatedAnnealingSearch search =  new SimulatedAnnealingSearch(100000,100,5,0.001);
             //search.traceOn();
             SearchAgent agent = new SearchAgent(problem,search);
