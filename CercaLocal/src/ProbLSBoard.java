@@ -120,6 +120,18 @@ public class ProbLSBoard {
         }
     }
 
+    public String toString()
+    {
+        String ret = "";
+        for (HashMap.Entry<Integer, ArrayList<Pair<Integer,Integer>>> entry: actualBoard.entrySet()) {
+            ret+="user" + entry.getKey() + ": \n";
+            for (Pair<Integer,Integer> p : entry.getValue())
+                ret+="(" + p.first + "," + p.second + ") \n";
+            ret+= "\n";
+        }
+        return ret;
+    }
+
     public void printServersTime() {
         int nservers = numServers;
         int[] count_servidors = new int[nservers];

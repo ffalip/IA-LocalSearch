@@ -17,19 +17,19 @@ public class ProbLSSuccessorFunctionSA implements SuccessorFunction {
 
         // com a minim 1 dels 2 ha de ser true sino caca
         boolean OPERADOR_MOVE = true;
-        boolean OPERADOR_SWAP = true;
+        boolean OPERADOR_SWAP = false;
 
         ArrayList retVal = new ArrayList();
         ProbLSBoard pare = (ProbLSBoard) aState;
-        ProbLSHeuristicFunction LSHF  = new ProbLSHeuristicFunction();
+        ProbLSHeuristicFunction1 LSHF  = new ProbLSHeuristicFunction1();
         Random myRandom=new Random();
 
         ArrayList<Integer> users = pare.getUsersId();
 
-        int num_rand = myRandom.nextInt(2);
+        int num_rand = myRandom.nextInt(1);
 
         // IF PER FER OPERADOR DE MOVE
-        if (num_rand == 0 or (OPERADOR_MOVE && !OPERADOR_SWAP)){
+        if (num_rand == 0 || (OPERADOR_MOVE && !OPERADOR_SWAP)){
 
             int num_user, pos_fitxer, num_server;
 
@@ -53,12 +53,13 @@ public class ProbLSSuccessorFunctionSA implements SuccessorFunction {
             double valor = LSHF.getHeuristicValue(fill);
             String string_info = "Fitxer " + num_fitxer + " del usuari " + id_user + " passa del servidor " + pare.getActualBoard().get(id_user).get(pos_fitxer).getSecond() + " al servidor " + num_server + " cost(" + valor +")";
             // afegeix un fill al valor de return
-            retVal.add(new Successor(string_info, fill));
 
+            retVal.add(new Successor(string_info, fill));
+            return retVal;
         }
 
         // IF PER FER OPERADOR DE SWAP
-        else if (num_rand == 1 or (!OPERADOR_MOVE && OPERADOR_SWAP)){
+        else if (num_rand == 1 || (!OPERADOR_MOVE && OPERADOR_SWAP)){
 
             int num_user1, num_user2, pos_fitxer1, pos_fitxer2, num_server1, num_server2;
 
@@ -78,7 +79,20 @@ public class ProbLSSuccessorFunctionSA implements SuccessorFunction {
             num_server2 = pare.getActualBoard().get(id_user2).get(pos_fitxer2).getSecond();
 
             do{
-                num_server = myRandom.nextInt(pare.getNumServers());
+                num_user1 = myRandom.nextInt(users.size());
+                num_user2 = myRandom.nextInt(users.size());
+
+                id_user1 = users.get(num_user1);
+                id_user2 = users.get(num_user2);
+
+                pos_fitxer1 = myRandom.nextInt(pare.getActualBoard().get(id_user1).size());
+                pos_fitxer2 = myRandom.nextInt(pare.getActualBoard().get(id_user1).size());
+
+                num_fitxer1 = pare.getActualBoard().get(id_user1).get(pos_fitxer1).getFirst();
+                num_fitxer2 = pare.getActualBoard().get(id_user2).get(pos_fitxer2).getFirst();
+
+                num_server1 = pare.getActualBoard().get(id_user1).get(pos_fitxer1).getSecond();
+                num_server2 = pare.getActualBoard().get(id_user2).get(pos_fitxer2).getSecond();
             } while( !( pare.validFileServer(num_fitxer1, num_server2) && pare.validFileServer(num_fitxer1, num_server1) ) ); // mentres el swap no sigui possible
 
 
@@ -92,7 +106,7 @@ public class ProbLSSuccessorFunctionSA implements SuccessorFunction {
 
             // afegeix un fill al valor de return
             retVal.add(new Successor(string_info, fill));
-
+            return retVal;
         }
 
         return retVal;
