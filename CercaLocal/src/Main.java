@@ -51,6 +51,7 @@ public class Main {
             ProbLSBoard board = new ProbLSBoard(numUsers, maxReq, numServers, minReps, problemSeed);
             //board.printState();
             //LSHillClimbingSearch(board);
+
             LSSimulatedAnnealingSearch(board);
         }
         //board.printServersTime();
@@ -64,6 +65,7 @@ public class Main {
             Search search =  new HillClimbingSearch();
             SearchAgent agent = new SearchAgent(problem,search);
             System.out.println();
+            System.out.println(agent.getActions().get(0));
             printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
         } catch (Exception e) {
@@ -74,11 +76,9 @@ public class Main {
         System.out.println("\nTSP Simulated Annealing  -->");
         try {
             Problem problem =  new Problem(board,new ProbLSSuccessorFunctionSA(), new ProbLSGoalTest(),new ProbLSHeuristicFunction1());
-            SimulatedAnnealingSearch search =  new SimulatedAnnealingSearch(2000,100,5,0.001);
-            search.traceOn();
+            SimulatedAnnealingSearch search =  new SimulatedAnnealingSearch(30000,100,1,0.0001);
+            //search.traceOn();
             SearchAgent agent = new SearchAgent(problem,search);
-
-            System.out.println();
             printActions(agent.getActions());
             printInstrumentation(agent.getInstrumentation());
         } catch (Exception e) {
@@ -98,8 +98,8 @@ public class Main {
 
     private static void printActions(List actions) {
         for (int i = 0; i < actions.size(); i++) {
-            //String action = (String) actions.get(i);
-            System.out.println((actions.get(i)));
+            String action = (String) actions.get(i);
+            System.out.println(action);
         }
     }
 }

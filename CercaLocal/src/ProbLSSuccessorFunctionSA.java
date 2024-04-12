@@ -26,10 +26,10 @@ public class ProbLSSuccessorFunctionSA implements SuccessorFunction {
 
         ArrayList<Integer> users = pare.getUsersId();
 
-        int num_rand = myRandom.nextInt(1);
+        int num_rand = myRandom.nextInt(2);
 
         // IF PER FER OPERADOR DE MOVE
-        if (num_rand == 0 || (OPERADOR_MOVE && !OPERADOR_SWAP)){
+        if (true|| (OPERADOR_MOVE && !OPERADOR_SWAP)){
 
             int num_user, pos_fitxer, num_server;
 
@@ -55,6 +55,8 @@ public class ProbLSSuccessorFunctionSA implements SuccessorFunction {
             // afegeix un fill al valor de return
 
             retVal.add(new Successor(string_info, fill));
+            //System.out.println(string_info);
+
             return retVal;
         }
 

@@ -39,6 +39,7 @@ public class ProbLSSuccessorFunction implements SuccessorFunction {
                         double valor = LSHF.getHeuristicValue(fill);
                         String string_info = "Fitxer " + num_fitxer + " del usuari " + id_user + " passa del servidor " + pare.getActualBoard().get(id_user).get(pos_fitxer).getSecond() + " al servidor " + num_server +" cost(" + valor +")";
                         // afegeix un fill al valor de return
+
                         retVal.add(new Successor(string_info, fill));
                     }
 
