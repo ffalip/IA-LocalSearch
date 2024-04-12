@@ -53,7 +53,7 @@ public class Main {
             ProbLSBoard board = new ProbLSBoard(numUsers, maxReq, numServers, minReps, solIni, problemSeed);
             board.printState();
             //LSHillClimbingSearch(board);
-            //LSSimulatedAnnealingSearch(board);
+            LSSimulatedAnnealingSearch(board);
         //}
         //board.printServersTime();
 
