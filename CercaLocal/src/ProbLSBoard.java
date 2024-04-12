@@ -19,7 +19,7 @@ public class ProbLSBoard {
     /** Constructora
      * Genera una instància del problema
      */
-    public ProbLSBoard(int users, int maxReq, int numS, int minReps, int seed)
+    public ProbLSBoard(int users, int maxReq, int numS, int minReps, int solIni, int seed)
     {
         try {
             Random rand = new Random(seed);
@@ -38,9 +38,22 @@ public class ProbLSBoard {
                 int[] fileIdLoc = servers.fileLocations(fileId).stream().mapToInt(a->a).toArray();
                 fileLoc.put(fileId, fileIdLoc);
 
-                int randS = fileIdLoc[rand.nextInt(fileIdLoc.length)];
+                int transmitingS = -1;
+                if (solIni == 1) {                    //solució inicial random
+                    transmitingS = fileIdLoc[rand.nextInt(fileIdLoc.length)];
+                }
+                else {                                //solució inicial greedy
+                    int minTime = Integer.MAX_VALUE;
+                    for (int s: fileLoc.get(fileId)) {
+                        int time = servers.tranmissionTime(s, usrId);
+                        if (time < minTime) {
+                            minTime = time;
+                            transmitingS = s;
+                        }
+                    }
+                }
                 actualBoard.computeIfAbsent(usrId, k -> new ArrayList<>());
-                actualBoard.get(usrId).add(new Pair<Integer,Integer>(fileId, randS));
+                actualBoard.get(usrId).add(new Pair<Integer,Integer>(fileId, transmitingS));
             }
             for (int userId : actualBoard.keySet()) {
                 int[] transTimeUserId = new int[numServers];
@@ -118,6 +131,24 @@ public class ProbLSBoard {
                 System.out.print("(" + p.first + "," + p.second + ") ");
             System.out.println();
         }
+        /* Print transTime
+        System.out.println();
+        for (HashMap.Entry<Integer, int[]> entry : transTime.entrySet()) {
+            System.out.print("user" + entry.getKey() + ": ");
+            for (int i : entry.getValue()) {
+                System.out.print(i + " ");
+            }
+            System.out.println();
+        }*/
+        /* Print fileLoc
+        System.out.println();
+        for (HashMap.Entry<Integer, int[]> entry : fileLoc.entrySet()) {
+            System.out.print("file" + entry.getKey() + ": ");
+            for (int i : entry.getValue()) {
+                System.out.print(i + " ");
+            }
+            System.out.println();
+        }*/
     }
 
     public String toString()

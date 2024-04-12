@@ -28,6 +28,7 @@ public class Main {
         int numServers;
         int maxReq;
         int minReps;
+        int solIni = 2;
         /*
         if (mode == 'R') {
             System.out.println("Generant problema aleatori...");
@@ -40,20 +41,21 @@ public class Main {
 
         }*/
         //else {
-            numUsers    = 200;
-            numServers  = 50;
-            maxReq      = 5;
-            minReps     = 5;
+            numUsers    = 5;
+            numServers  = 4;
+            maxReq      = 2;
+            minReps     = 2;
         //}
-        for (int i = 0; i < 10; ++i) {
+        //for (int i = 0; i < 10; ++i) {
             problemSeed = rand.nextInt(Integer.MAX_VALUE);
             System.out.println(problemSeed);
-            ProbLSBoard board = new ProbLSBoard(numUsers, maxReq, numServers, minReps, problemSeed);
-            //board.printState();
+
+            ProbLSBoard board = new ProbLSBoard(numUsers, maxReq, numServers, minReps, solIni, problemSeed);
+            board.printState();
             //LSHillClimbingSearch(board);
 
             LSSimulatedAnnealingSearch(board);
-        }
+        //}
         //board.printServersTime();
 
     }
