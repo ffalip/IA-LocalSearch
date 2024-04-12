@@ -50,7 +50,7 @@ public class Main {
     private static void LSHillClimbingSearch(ProbLSBoard board) {
         System.out.println("\nLS HillClimbing  -->");
         try {
-            Problem problem =  new Problem(board,new ProbLSSuccessorFunction(), new ProbLSGoalTest(),new ProbLSHeuristicFunction());
+            Problem problem =  new Problem(board,new ProbLSSuccessorFunction(), new ProbLSGoalTest(),new ProbLSHeuristicFunction1());
             Search search =  new HillClimbingSearch();
             SearchAgent agent = new SearchAgent(problem,search);
             System.out.println();
