@@ -16,34 +16,41 @@ public class Main {
     private static final int maxServers  = 50;
     private static final int maxReqFiles = 10;
 
+
     public static void main(String[] args) throws IOException {
         System.out.print("Problema amb atributs randoms (R) o manuals (M): ");
         char mode = (char) System.in.read();
+        long seed = System.currentTimeMillis();
+        Random rand = new Random(seed);
+        int problemSeed = rand.nextInt();
+
+        int numUsers;
+        int numServers;
+        int maxReq;
+        int minReps;
+
         if (mode == 'R') {
             System.out.println("Generant problema aleatori...");
-
-            long seed = System.currentTimeMillis();
-            Random rand = new Random(seed);
-
-            int numUsers    = rand.nextInt(maxUsers) + 1;
-            int numServers  = rand.nextInt(maxServers-1) + 2;
-            int problemSeed = rand.nextInt();
-            int maxReq      = rand.nextInt(maxReqFiles) + 1;
-            int minReps     = rand.nextInt((numServers / 2)) + 1;
+             seed = System.currentTimeMillis();
+             numUsers    = rand.nextInt(maxUsers) + 1;
+             numServers  = rand.nextInt(maxServers-1) + 2;
+             maxReq      = rand.nextInt(maxReqFiles) + 1;
+             minReps     = rand.nextInt((numServers / 2)) + 1;
             System.out.println(numUsers + " " + maxReq + " " + numServers + " " + minReps);
-            ProbLSBoard board = new ProbLSBoard(numUsers, maxReq, numServers, minReps, problemSeed);
-            board.printState();
-            LSHillClimbingSearch(board);
-            board.printServersTime();
-            //LSSimulatedAnnealingSearch(board);
+
         }
-        else if (mode == 'M'){
-            System.out.print("Introdueix el nombre de d'usuaris: ");
-            System.out.print("Introdueix el nombre de servidors: ");
-            System.out.print("Introdueix el nombre màxim de peticions per usuari: ");
-            System.out.print("Introdueix el nombre minim de replicació de fitxers ");
+        else {
+            numUsers    = 200;
+            numServers  = 50;
+            maxReq      = 5;
+            minReps     = 5;
         }
-        else System.out.println("El mode: " + mode + " no és vàlid");
+
+        ProbLSBoard board = new ProbLSBoard(numUsers, maxReq, numServers, minReps, problemSeed);
+        board.printState();
+        LSHillClimbingSearch(board);
+        board.printServersTime();
+        //LSSimulatedAnnealingSearch(board);
 
     }
 
