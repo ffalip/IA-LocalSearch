@@ -33,7 +33,7 @@ public class ProbLSHeuristicFunction implements HeuristicFunction {
 
         double sum = 0;
         for (int i = 0; i < nservers; ++i) {
-            sum += (double)count_servidors[i]*(double)count_servidors[i];
+            sum += (double)count_servidors[i];
         }
         return (sum);
     }

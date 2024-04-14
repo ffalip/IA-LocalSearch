@@ -22,7 +22,7 @@ public class ProbLSBoard {
     public ProbLSBoard(int users, int maxReq, int numS, int minReps, int solIni, int seed)
     {
         try {
-            Random rand = new Random(seed);
+            Random rand = new Random(System.currentTimeMillis());
             Requests requests = new Requests(users, maxReq, seed);
             Servers servers = new Servers(numS, minReps, seed);
             numServers  = numS;
@@ -178,5 +178,27 @@ public class ProbLSBoard {
         for (int i = 0; i < nservers; ++i) {
             System.out.println(i + "temps:" + count_servidors[i]);
         }
+    }
+    public int getTotalTime() {
+        int nservers = getNumServers();
+
+        HashMap<Integer, ArrayList<Pair<Integer,Integer>>> usuaris = getActualBoard();
+        int[] count_servidors = new int[nservers];
+
+        for (HashMap.Entry<Integer, ArrayList<Pair<Integer,Integer>>> entry : usuaris.entrySet()) {
+            Integer key = entry.getKey();
+            ArrayList<Pair<Integer,Integer>> value = entry.getValue();
+            int nreq = value.size();
+            for (int j = 0; j < nreq; ++j) {
+                int idServer = value.get(j).second;
+                count_servidors[idServer] += transTime.get(key)[idServer]; //transtimes correcte
+            }
+        }
+
+        int sum = 0;
+        for (int i = 0; i < nservers; ++i) {
+            sum += count_servidors[i];
+        }
+        return (sum);
     }
 }

@@ -47,6 +47,8 @@ public class ProbLSSuccessorFunction implements SuccessorFunction {
             }
         }
 
+
+
         // FOR PER FER OPERADOR SWAP
         for (int num_user = 0; num_user < users.size(); ++num_user){ // per cada usuari
             int id_user = users.get(num_user);
