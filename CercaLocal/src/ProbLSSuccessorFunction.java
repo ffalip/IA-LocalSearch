@@ -16,7 +16,7 @@ public class ProbLSSuccessorFunction implements SuccessorFunction {
 
         ArrayList retVal = new ArrayList();
         ProbLSBoard pare = (ProbLSBoard) aState;
-        ProbLSHeuristicFunction1 LSHF  = new ProbLSHeuristicFunction1();
+        ProbLSHeuristicFunction LSHF  = new ProbLSHeuristicFunction();
 
         ArrayList<Integer> users = pare.getUsersId();
 
@@ -38,9 +38,10 @@ public class ProbLSSuccessorFunction implements SuccessorFunction {
 
                         double valor = LSHF.getHeuristicValue(fill);
                         String string_info = "Fitxer " + num_fitxer + " del usuari " + id_user + " passa del servidor " + pare.getActualBoard().get(id_user).get(pos_fitxer).getSecond() + " al servidor " + num_server +" cost(" + valor +")";
+                        String string_info1 =  ""+ fill.getTotalTime();
                         // afegeix un fill al valor de return
 
-                        retVal.add(new Successor(string_info, fill));
+                        retVal.add(new Successor(string_info1, fill));
                     }
 
                 }
@@ -48,7 +49,7 @@ public class ProbLSSuccessorFunction implements SuccessorFunction {
         }
 
 
-
+        /*
         // FOR PER FER OPERADOR SWAP
         for (int num_user = 0; num_user < users.size(); ++num_user){ // per cada usuari
             int id_user = users.get(num_user);
@@ -83,6 +84,8 @@ public class ProbLSSuccessorFunction implements SuccessorFunction {
 
             }
         }
+
+         */
 
 
         return retVal;

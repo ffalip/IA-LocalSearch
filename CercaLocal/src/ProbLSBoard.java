@@ -201,4 +201,28 @@ public class ProbLSBoard {
         }
         return (sum);
     }
+    public void getTimeServers() {
+        int nservers = getNumServers();
+
+        HashMap<Integer, ArrayList<Pair<Integer,Integer>>> usuaris = getActualBoard();
+        int[] count_servidors = new int[nservers];
+
+        for (HashMap.Entry<Integer, ArrayList<Pair<Integer,Integer>>> entry : usuaris.entrySet()) {
+            Integer key = entry.getKey();
+            ArrayList<Pair<Integer,Integer>> value = entry.getValue();
+            int nreq = value.size();
+            for (int j = 0; j < nreq; ++j) {
+                int idServer = value.get(j).second;
+                count_servidors[idServer] += transTime.get(key)[idServer]; //transtimes correcte
+            }
+        }
+
+        int max = 0;
+        for (int i = 0; i < nservers; ++i) {
+
+            System.out.println(count_servidors[i]);
+
+        }
+
+    }
 }

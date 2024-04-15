@@ -53,19 +53,19 @@ public class Main {
         //}
 
 
-        for (int i = 0; i < 5; ++i) {
+        for (int i = 0; i < 10; ++i) {
             problemSeed = rand.nextInt(Integer.MAX_VALUE);
             LocalTime currentTime = LocalTime.now();
             System.out.println(currentTime);
             System.out.println(problemSeed);
+
             ProbLSBoard board = new ProbLSBoard(numUsers, maxReq, numServers, minReps, solIni, problemSeed);
             //board.printState();
             LSHillClimbingSearch(board, i);
             //LSSimulatedAnnealingSearch(board, i);
-            LocalTime newcurrentTime = LocalTime.now();
-            System.out.println(board.getTotalTime());
+           LocalTime newcurrentTime = LocalTime.now();
+            //System.out.println(board.getTotalTime());
             System.out.println(currentTime.until(newcurrentTime, ChronoUnit.MILLIS));
-            System.out.println("----------");
             minReps += 5;
         }
         //board.printServersTime();
@@ -75,11 +75,11 @@ public class Main {
     private static void LSHillClimbingSearch(ProbLSBoard board, int i) {
         System.out.println("\nLS HillClimbing  -->");
         try {
-            Problem problem =  new Problem(board,new ProbLSSuccessorFunction(), new ProbLSGoalTest(),new ProbLSHeuristicFunction1());
+            Problem problem =  new Problem(board,new ProbLSSuccessorFunction(), new ProbLSGoalTest(),new ProbLSHeuristicFunction());
             Search search =  new HillClimbingSearch();
             SearchAgent agent = new SearchAgent(problem,search);
             System.out.println();
-            //printActions(agent.getActions(), i);
+            printActions(agent.getActions(), i);
             printInstrumentation(agent.getInstrumentation());
         } catch (Exception e) {
             e.printStackTrace();
@@ -92,8 +92,8 @@ public class Main {
             SimulatedAnnealingSearch search =  new SimulatedAnnealingSearch(1000000,10000,5,0.001);
             //search.traceOn();
             SearchAgent agent = new SearchAgent(problem,search);
-            //printActions(agent.getActions(), i);
-            //printInstrumentation(agent.getInstrumentation());
+            printActions(agent.getActions(), i);
+            printInstrumentation(agent.getInstrumentation());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -117,14 +117,14 @@ public class Main {
         for (int i = 0; i < actions.size(); i++) {
             String action = (String) actions.get(i);
             System.out.println(action);
-            float valor = extractFloatFromParentheses(action);
-            try {
+            //float valor = extractFloatFromParentheses(action);
+            /*try {
 
-                appendFloatToFile(PATH, valor);
+              //  appendFloatToFile(PATH, valor);
                 //System.out.println("Float value appended to the file successfully.");
-            } catch (IOException e) {
+            //} catch (IOException e) {
                 System.out.println("An error occurred while appending the float value to the file: " + e.getMessage());
-            }
+            }*/
         }
     }
     private static float extractFloatFromParentheses(String action) {

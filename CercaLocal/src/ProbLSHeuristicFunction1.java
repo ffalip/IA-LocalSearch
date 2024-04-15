@@ -31,12 +31,14 @@ public class ProbLSHeuristicFunction1 implements HeuristicFunction {
             }
         }
 
+        int totaltime = 0;
         double max = 0;
         for (int i = 0; i < nservers; ++i) {
             if ((double) count_servidors[i] >= max) {
                 max = count_servidors[i];
             }
         }
+
         return (max);
     }
 }
